@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Theme color helps define the browser toolbar colour on mobile -->
+    <meta name="theme-color" content="#f57c00" />
+    <title>Calificador de Tareas</title>
+    <!-- Link the web app manifest so the browser knows this is a PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <!-- Basic styling for a friendly teacher‑oriented interface -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Calificador de Tareas</h1>
+    </header>
+
+    <main>
+      <section id="cameraSection">
+        <h2>Capturar tarea</h2>
+        <p>Utiliza la cámara de tu teléfono para tomar una foto de la respuesta del alumno.</p>
+        <video id="video" autoplay playsinline></video>
+        <canvas id="canvas" style="display:none;"></canvas>
+        <div class="controls">
+          <button id="startCameraBtn">Iniciar cámara</button>
+          <button id="takePhotoBtn" disabled>Tomar foto</button>
+        </div>
+      </section>
+
+      <section id="ocrSection" style="display:none;">
+        <h2>Texto extraído</h2>
+        <textarea id="ocrResult" rows="6" readonly placeholder="El texto reconocido aparecerá aquí..."></textarea>
+      </section>
+
+      <section id="aiSection" style="display:none;">
+        <h2>Evaluación automática (opcional)</h2>
+        <p>
+          Si deseas que un modelo de IA evalúe la respuesta, introduce tu clave API y
+          una instrucción de evaluación. Para mantener esta aplicación gratuita,
+          recomendamos utilizar el modelo Gemini 1.5 Flash de Google, que ofrece un generoso nivel gratuito de 2&nbsp;millones de tokens al mes
+          【794701976669806†L145-L158】.
+        </p>
+        <div class="field">
+          <label for="apiProvider">Proveedor de IA:</label>
+          <select id="apiProvider">
+            <option value="none">-- Seleccionar --</option>
+            <option value="gemini">Gemini (Google)</option>
+            <option value="openai">OpenAI</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="apiKey">Clave API:</label>
+          <input type="password" id="apiKey" placeholder="API key" />
+        </div>
+        <div class="field">
+          <label for="instruction">Instrucción de evaluación:</label>
+          <textarea id="instruction" rows="4" placeholder="Ejemplo: Analiza la respuesta y asigna una calificación del 0 al 10 explicando los puntos fuertes y débiles."></textarea>
+        </div>
+        <button id="evaluateBtn">Evaluar con IA</button>
+        <h3>Resultado de la IA</h3>
+        <textarea id="aiResult" rows="6" readonly placeholder="La respuesta de la IA aparecerá aquí..."></textarea>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Esta aplicación funciona como una Aplicación Web Progresiva (PWA). Puedes
+        instalarla en tu dispositivo móvil utilizando el menú del navegador
+        ("Agregar a la pantalla de inicio"). Más detalles sobre los requisitos
+        para la instalabilidad de PWAs se pueden encontrar en la documentación de
+        MDN【96153889790282†L213-L263】.
+      </p>
+    </footer>
+
+    <!-- Incluimos Tesseract.js desde un CDN para realizar OCR de forma local en el navegador -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <!-- Script principal -->
+    <script src="script.js"></script>
+  </body>
+</html>
